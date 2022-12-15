@@ -1,4 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
+const { ANSWER } = require('../Utils/Constant');
 const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
 const SizeCheck = require('../Models/SizeCheck');
@@ -10,6 +11,7 @@ const BridgeGame = require('../Models/BridgeGame');
 class BridgeController {
   size;
   bridge;
+  userMoving = [];
 
   constructor() {
     this.SizeCheck = new SizeCheck();
@@ -49,8 +51,25 @@ class BridgeController {
       return this.inputUpDown();
     };
 
-    return this.BridgeGame.move(upDown);
+    this.userMoving.push(upDown);
+    return this.answerCheck();
   };
+
+  answerCheck() {
+    Console.print(this.bridge)
+    Console.print(this.userMoving)
+    Console.print(this.BridgeGame.move(this.userMoving))
+  };
+  // answerCheck() {
+  //   switch (this.BridgeGame.move(this.userMoving)) {
+  //     case 0:
+  //       return this.notAnswerMoving();
+  //     case 1:
+  //       return this.repeatMoving();
+  //     case 2:
+  //       return this.finalAnswer(ANSWER.ok);
+  //   };
+  // };
 
 };
 

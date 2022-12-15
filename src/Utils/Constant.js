@@ -20,8 +20,14 @@ const UP_DOWN = {
   down: 'D',
 };
 
+const ANSWER = {
+  ok: 'O',
+  no: 'X',
+};
+
 module.exports = {
   MESSAGE,
   ERROR,
   UP_DOWN,
+  ANSWER,
 };
