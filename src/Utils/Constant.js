@@ -13,7 +13,13 @@ const ERROR = {
   sizeWord: '[ERROR] 사이즈에는 정수만 입력해야 합니다.',
 };
 
+const UP_DOWN = {
+  up: 'U',
+  down: 'D',
+};
+
 module.exports = {
   MESSAGE,
   ERROR,
+  UP_DOWN,
 };

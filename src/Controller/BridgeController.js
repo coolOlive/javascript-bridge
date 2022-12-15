@@ -2,9 +2,12 @@ const { Console } = require('@woowacourse/mission-utils');
 const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
 const sizeCheck = require('../Models/sizeCheck');
+const BridgeMaker = require('../BridgeMaker');
+const BridgeRandomNumberGenerator = require('../BridgeRandomNumberGenerator');
 
 class BridgeController {
   size;
+  bridge;
 
   constructor() {
     this.sizeCheck = new sizeCheck();
@@ -28,7 +31,7 @@ class BridgeController {
   };
 
   makeBridge() {
-
+    this.bridge = BridgeMaker.makeBridge(this.size, BridgeRandomNumberGenerator.generate);
   };
 
 };
