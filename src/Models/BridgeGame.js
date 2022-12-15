@@ -1,3 +1,5 @@
+const { Console } = require('@woowacourse/mission-utils');
+
 class BridgeGame {
   #bridge;
 
@@ -15,11 +17,12 @@ class BridgeGame {
   };
 
   isLastAnswer(movingCount) {
+    // Console.print(movingCount, this.#bridge.length)
     if (movingCount === this.#bridge.length) {
-      return 2;
+      return 1;
     }
 
-    return 1;
+    return 2;
   };
 
   /**

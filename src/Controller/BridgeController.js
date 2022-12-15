@@ -1,5 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
-const { ANSWER } = require('../Utils/Constant');
+const { ANSWER, SUCCESS } = require('../Utils/Constant');
 const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
 const SizeCheck = require('../Models/SizeCheck');
@@ -12,6 +12,8 @@ class BridgeController {
   size;
   bridge;
   userMoving = [];
+  tryCount = 1;
+  isSuccess = SUCCESS.fail;
 
   constructor() {
     this.SizeCheck = new SizeCheck();
@@ -37,6 +39,7 @@ class BridgeController {
   makeBridge() {
     this.bridge = BridgeMaker.makeBridge(this.size, BridgeRandomNumberGenerator.generate);
     this.BridgeGame = new BridgeGame(this.bridge);
+    Console.print(this.bridge)
     this.inputUpDown();
   };
 
@@ -56,20 +59,31 @@ class BridgeController {
   };
 
   answerCheck() {
-    Console.print(this.bridge)
-    Console.print(this.userMoving)
-    Console.print(this.BridgeGame.move(this.userMoving))
+    switch (this.BridgeGame.move(this.userMoving)) {
+      case 0:
+        return this.notCorrect();
+      case 1:
+        return this.allCorrect();
+      case 2:
+        return this.correct();
+    };
   };
-  // answerCheck() {
-  //   switch (this.BridgeGame.move(this.userMoving)) {
-  //     case 0:
-  //       return this.notAnswerMoving();
-  //     case 1:
-  //       return this.repeatMoving();
-  //     case 2:
-  //       return this.finalAnswer(ANSWER.ok);
-  //   };
-  // };
+  
+  notCorrect() {
+    OutputView.printMap(this.userMoving, ANSWER.no);
+    //재시도 묻기
+  };
+
+  allCorrect() {
+    this.isSuccess = SUCCESS.success;
+    // OutputView.printResult(this.userMoving, this.isSuccess, this.tryCount);
+    // this.inputUpDown();
+  };
+
+  correct() {
+    OutputView.printMap(this.userMoving, ANSWER.ok);
+    this.inputUpDown();
+  };
 
 };
 

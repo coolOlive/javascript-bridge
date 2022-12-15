@@ -21,8 +21,14 @@ const UP_DOWN = {
 };
 
 const ANSWER = {
-  ok: 'O',
-  no: 'X',
+  ok: ' O ',
+  no: ' X ',
+  blank: '   ',
+};
+
+const SUCCESS = {
+  success: '성공',
+  fail: '실패',
 };
 
 module.exports = {
@@ -30,4 +36,5 @@ module.exports = {
   ERROR,
   UP_DOWN,
   ANSWER,
+  SUCCESS,
 };
