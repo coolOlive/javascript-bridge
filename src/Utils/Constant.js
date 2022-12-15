@@ -8,6 +8,12 @@ const MESSAGE = {
   tryCount: '총 시도한 횟수: ',
 };
 
+const ERROR = {
+  sizeRange: '[ERROR] 사이즈 범위는 3에서 20 사이의 정수입니다.',
+  sizeWord: '[ERROR] 사이즈에는 정수만 입력해야 합니다.',
+};
+
 module.exports = {
   MESSAGE,
+  ERROR,
 };
