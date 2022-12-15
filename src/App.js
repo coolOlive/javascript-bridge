@@ -1,8 +1,12 @@
 const BridgeController = require('./Controller/BridgeController');
 
 class App {
+  constructor() {
+    this.gameStart = new BridgeController();
+  };
+
   play() {
-    new BridgeController();
+    this.gameStart.inputSize();
   };
 };
 

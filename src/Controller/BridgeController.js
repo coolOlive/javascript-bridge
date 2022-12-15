@@ -1,27 +1,29 @@
 const { Console } = require('@woowacourse/mission-utils');
 const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
-const sizeCheck = require('../Models/sizeCheck');
+const SizeCheck = require('../Models/SizeCheck');
+const UpDownCheck = require('../Models/UpDownCheck');
 const BridgeMaker = require('../BridgeMaker');
 const BridgeRandomNumberGenerator = require('../BridgeRandomNumberGenerator');
+const BridgeGame = require('../Models/BridgeGame');
 
 class BridgeController {
   size;
   bridge;
 
   constructor() {
-    this.sizeCheck = new sizeCheck();
+    this.SizeCheck = new SizeCheck();
+    this.UpDownCheck = new UpDownCheck();
     OutputView.startMessage();
-    this.inputSize();
-  }
+  };
 
   inputSize() {
     InputView.readBridgeSize(size => {
-      this.isValideSize(this.sizeCheck.validate(size), size);
+      this.isValidSize(this.SizeCheck.validate(size), size);
     });
   };
 
-  isValideSize(isValid, size) {
+  isValidSize(isValid, size) {
     if (!isValid) {
       return this.inputSize();
     };
@@ -32,6 +34,22 @@ class BridgeController {
 
   makeBridge() {
     this.bridge = BridgeMaker.makeBridge(this.size, BridgeRandomNumberGenerator.generate);
+    this.BridgeGame = new BridgeGame(this.bridge);
+    this.inputUpDown();
+  };
+
+  inputUpDown() {
+    InputView.readMoving(upDown => {
+      this.isValidUpDown(this.UpDownCheck.validate(upDown), upDown);
+    });
+  };
+
+  isValidUpDown(isValid, upDown) {
+    if (!isValid) {
+      return this.inputUpDown();
+    };
+
+    return this.BridgeGame.move(upDown);
   };
 
 };

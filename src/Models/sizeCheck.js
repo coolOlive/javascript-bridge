@@ -1,7 +1,7 @@
 const { ERROR } = require('../Utils/Constant');
 const OutputView = require('../Views/OutputView');
 
-class sizeCheck {
+class SizeCheck {
   validate(size) {
     try {
       this.checkRangeAndWord(size);
@@ -30,4 +30,4 @@ class sizeCheck {
   };
 };
 
-module.exports = sizeCheck;
+module.exports = SizeCheck;
