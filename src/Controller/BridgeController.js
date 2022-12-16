@@ -1,4 +1,3 @@
-const { Console } = require('@woowacourse/mission-utils');
 const { ANSWER, SUCCESS } = require('../Utils/Constant');
 const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
@@ -41,7 +40,6 @@ class BridgeController {
   makeBridge() {
     this.bridge = BridgeMaker.makeBridge(this.size, BridgeRandomNumberGenerator.generate);
     this.BridgeGame = new BridgeGame(this.bridge);
-    Console.print(this.bridge)
     this.inputUpDown();
   };
 
@@ -78,7 +76,7 @@ class BridgeController {
 
   allCorrect() {
     this.isSuccess = SUCCESS.success;
-    // 최종 출력
+    return this.finalResultPrint();
   };
 
   correct() {
@@ -106,7 +104,12 @@ class BridgeController {
       this.userMoving = [];
       return this.inputUpDown();
     };
-// 최종 출력
+
+    return this.finalResultPrint();
+  };
+
+  finalResultPrint() {
+    OutputView.printResult(this.userMoving, this.isSuccess, this.tryCount);
   };
 
 };

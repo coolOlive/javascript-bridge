@@ -1,5 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
-const { MESSAGE } = require('../Utils/Constant');
+const { MESSAGE, ANSWER, SUCCESS } = require('../Utils/Constant');
 const MakeMap = require('../Models/MakeMap');
 
 const OutputView = {
@@ -14,14 +14,15 @@ const OutputView = {
   printMap(userMoving, isAnswer) {
     Console.print(MakeMap.makePrintMap(userMoving, isAnswer));
   },
-
-  /**
-   * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
-   * <p>
-   * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
-   */
-  printResult() {
+  
+  printResult(userMoving, failOrSuccess, tryCount) {
+    const isOkOrNot = (failOrSuccess === SUCCESS.success) ? ANSWER.ok : ANSWER.no;
     
+    Console.print(MESSAGE.finalMessage);
+    OutputView.printMap(userMoving, isOkOrNot);
+    Console.print(`${MESSAGE.failOrSuccess}${failOrSuccess}`);
+    Console.print(`${MESSAGE.tryCount}${tryCount}`);
+    Console.close();
   },
 };
 
