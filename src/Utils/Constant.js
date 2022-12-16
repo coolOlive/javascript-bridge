@@ -13,6 +13,8 @@ const ERROR = {
   sizeWord: '[ERROR] 사이즈에는 정수만 입력해야 합니다.',
   upDownWord: '[ERROR] U 또는 D만 입력 가능합니다.',
   upDownSize: '[ERROR] 한 글자만 입력 가능합니다.',
+  retryWord: '[ERROR] R 또는 Q만 입력 가능합니다.',
+  retrySize: '[ERROR] 한 글자만 입력 가능합니다.',
 };
 
 const UP_DOWN = {

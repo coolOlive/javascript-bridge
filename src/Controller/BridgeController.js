@@ -4,6 +4,7 @@ const InputView = require('../Views/InputView');
 const OutputView = require('../Views/OutputView');
 const SizeCheck = require('../Models/SizeCheck');
 const UpDownCheck = require('../Models/UpDownCheck');
+const RetryCheck = require('../Models/RetryCheck');
 const BridgeMaker = require('../BridgeMaker');
 const BridgeRandomNumberGenerator = require('../BridgeRandomNumberGenerator');
 const BridgeGame = require('../Models/BridgeGame');
@@ -18,6 +19,7 @@ class BridgeController {
   constructor() {
     this.SizeCheck = new SizeCheck();
     this.UpDownCheck = new UpDownCheck();
+    this.RetryCheck = new RetryCheck();
     OutputView.startMessage();
   };
 
@@ -71,18 +73,40 @@ class BridgeController {
   
   notCorrect() {
     OutputView.printMap(this.userMoving, ANSWER.no);
-    //재시도 묻기
+    this.askRetry();
   };
 
   allCorrect() {
     this.isSuccess = SUCCESS.success;
-    // OutputView.printResult(this.userMoving, this.isSuccess, this.tryCount);
-    // this.inputUpDown();
+    // 최종 출력
   };
 
   correct() {
     OutputView.printMap(this.userMoving, ANSWER.ok);
     this.inputUpDown();
+  };
+
+  askRetry() {
+    InputView.readGameCommand(retryAnswer => {
+      this.isValidRetryAnswer(this.RetryCheck.validate(retryAnswer), retryAnswer);
+    });
+  };
+
+  isValidRetryAnswer(isValid, retryAnswer) {
+    if (!isValid) {
+      return this.askRetry();
+    };
+    
+    return this.isRetryOrFinish(this.BridgeGame.retry(retryAnswer));
+  };
+
+  isRetryOrFinish(retryAnswer) {
+    if (retryAnswer === 1) {
+      this.tryCount += 1;
+      this.userMoving = [];
+      return this.inputUpDown();
+    };
+// 최종 출력
   };
 
 };
